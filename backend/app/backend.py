@@ -26,10 +26,10 @@ app.add_middleware(
 class ChatRequest(BaseModel):
     message: str
 
-# ---------------- Build LangGraph ----------------
+
 graph = StateGraph(dict)  # <-- Use dict, NOT TravelState class
 
-# Add nodes
+
 graph.add_node("intent", intent_agent)
 graph.add_node("website", website_agent)
 graph.add_node("itinerary", itinerary_agent)
@@ -37,10 +37,10 @@ graph.add_node("budget", budget_agent)
 graph.add_node("transport", transport_agent)
 graph.add_node("response", response_agent)
 
-# Entry point
+
 graph.set_entry_point("intent")
 
-# Conditional routing
+
 def route(state: Dict):
     return "website" if state.get("is_website_query") else "itinerary"
 
@@ -50,15 +50,14 @@ graph.add_conditional_edges(
     {"website": "website", "itinerary": "itinerary"}
 )
 
-# Linear flow
+
 graph.add_edge("itinerary", "budget")
 graph.add_edge("budget", "transport")
 graph.add_edge("transport", "response")
 
-# Website flow
-graph.add_edge("website", "response")
 
-# Finish point
+graph.add_edge("website", "response")
+    B 11
 graph.set_finish_point("response")
 
 # Compile graph

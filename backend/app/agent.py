@@ -62,15 +62,15 @@ def response_agent(state: Dict):
     stay = state.get("stay", "Not specified")
 
     state["response"] = f"""
-🌍 Travel Plan for {destination}
+ Travel Plan for {destination}
 
 🗓 Duration: {days} days
-💰 Budget: {budget}
+ Budget: {budget}
 
-📌 Itinerary:
+ Itinerary:
 {chr(10).join(itinerary)}
 
-🚆 Transport: {transport}
-🏨 Stay: {stay}
+ Transport: {transport}
+ Stay: {stay}
 """
     return state
